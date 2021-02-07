@@ -6,7 +6,7 @@
         <div class="form">
             <input placeholder="メールアドレス" type="email">
             <input placeholder="パスワード" type="password">
-            <button>ログイン </button>
+            <button @click="auth">ログイン </button>
         </div>
     </div>
   </div>
@@ -15,9 +15,23 @@
 <script>
 import HeaderAuth from "../components/HeaderAuth";
 export default {
-    components: {
-        HeaderAuth
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  components: {
+      HeaderAuth
+  },
+  methods: {
+    auth() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
+      });
     }
+  }
 };
 </script>
 

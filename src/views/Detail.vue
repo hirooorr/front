@@ -14,10 +14,10 @@
               </div>
               <div class="massage" v-for="(comment,index) in data" :key="index">
                   <div class="flex">
-                      <p class="name">{{comment.name}}</p>
+                      <p class="name">{{ comment.comment_user.name }}</p>
                   </div>
                   <div>
-                      <p class="text">{{comment.content}}</p>
+                      <p class="text">{{ comment.comment.content }}</p>
                   </div>
               </div>
               <input v-model="content" type="text" />
@@ -32,20 +32,49 @@
 <script>
 import SideNavi from "../components/SideNavi";
 import Message from "../components/Message";
+import axios from "axios";
 
 export default {
     props: ["id"],
     data() {
         return {
             content: "",
-            data: [{ name: "太郎", like: [], share: "初めまして"}]
+            data: "",
         };
     },
+    methods: {
+      send() {
+        axios
+          .post("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/comment", {
+            share_id: this.id,
+            user_id: this.$sotre.state.user.id,
+            content: this.content,
+          })
+          .then((response) => {
+            console.log(response);
+            this.content = "";
+            this.$router.go({
+              path: this.$router.currentRoute.path,
+              force: true,
+            });
+          });
+      },
+      comment() {
+        axios
+          .get("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/shares/" + this.id)
+          .then((response) => {
+            this.data = response.data.comment;
+          });
+      },
+    },
+    created() {
+      this.comment();
+    },
     components: {
-        SideNavi,
-        Message
-    }
-}
+      SideNavi,
+      Message,
+    },
+};
 </script>
 
 <style scoped>
@@ -68,6 +97,9 @@ export default {
 .title p {
   font-size: 20px;
   font-weight: bold;
+}
+.share-message {
+  border-bottom: 1px solid white;
 }
 .comment-title {
   text-align: center;

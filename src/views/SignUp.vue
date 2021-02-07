@@ -16,11 +16,38 @@
 
 <script>
 import HeaderAuth from "../components/HeaderAuth";
+import axios from "axios";
 export default {
-    components: {
-        HeaderAuth
+  data() {
+    return {
+      name: "",
+      profile: "",
+      email: "",
+      password: ""
+    };
+  },
+  components: {
+      HeaderAuth
+  },
+  methods: {
+    auth() {
+      axios
+        .post("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/register", {
+          name: this.name,
+          profile: this.profile,
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          console.log(response);
+          this.$router.replace("/");
+        })
+        .catch(error => {
+          alert(error);
+        });
     }
-}
+  }
+};
 </script>
 
 <style scoped>
