@@ -32,14 +32,14 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios.post(
-        "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/login",
+        "https://calm-thicket-18960.herokuapp.com/api/login",
         {
           email: email,
           password: password,
         }
       );
       const responseUser = await axios.get(
-        "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/user",
+        "https://calm-thicket-18960.herokuapp.com/api/user",
         {
           params: {
             email: email,
@@ -52,7 +52,7 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       axios
-        .post("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/logout", {
+        .post("https://calm-thicket-18960.herokuapp.com/api/logout", {
           auth: this.state.auth,
       })
         .then((response) => {

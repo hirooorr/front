@@ -45,7 +45,7 @@ export default {
     methods: {
       send() {
         axios
-          .post("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/comment", {
+          .post("https://calm-thicket-18960.herokuapp.com/api/comment", {
             share_id: this.id,
             user_id: this.$sotre.state.user.id,
             content: this.content,
@@ -61,7 +61,7 @@ export default {
       },
       comment() {
         axios
-          .get("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/shares/" + this.id)
+          .get("https://calm-thicket-18960.herokuapp.com/api/shares/" + this.id)
           .then((response) => {
             this.data = response.data.comment;
           });

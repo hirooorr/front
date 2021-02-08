@@ -52,7 +52,7 @@ export default {
                     if(element.user.id == this.$store.state.user.id) {
                         axios({
                             method: "delete",
-                            url: "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/like",
+                            url: "https://calm-thicket-18960.herokuapp.com/api/like",
                             data: {
                                 share_id: this.shares[index].item.id,
                                 user_id: this.$store.state.user.id,
@@ -68,7 +68,7 @@ export default {
                 });
             } else {
                 axios
-                    .post("mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/like", {
+                    .post("https://calm-thicket-18960.herokuapp.com/api/like", {
                         share_id: this.shares[index].item.id,
                         user_id: this.$router.state.user.id,
                     })
@@ -84,7 +84,7 @@ export default {
         del(index) {
             axios
                 .delete(
-                    "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true" +
+                    "https://calm-thicket-18960.herokuapp.com/api/shares/" +
                     this.shares[index].item.id
                 )
                 .then((response) => {
@@ -98,12 +98,12 @@ export default {
         async getShares() {
             let data = [];
             const shares = await axios.get(
-                "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/shares"
+                "https://calm-thicket-18960.herokuapp.com/api/shares"
             );
             for (let i = 0; i < shares.data.data.length; i++) {
                 await axios
                     .get(
-                        "mysql://b4930d8a0c2a9a:07cd54f8@us-cdbr-east-03.cleardb.com/heroku_336a7321155ae0c?reconnect=true/api/shares" +
+                        "https://calm-thicket-18960.herokuapp.com/api/shares" +
                         shares.data.data[i].id
                     )
                     .then((response) => {
