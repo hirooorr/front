@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             active: true,
-            name: this.$store.state.user.profile,
+            name: this.$store.state.user.name,
             profile: this.$store.state.user.profile,
         };
     },

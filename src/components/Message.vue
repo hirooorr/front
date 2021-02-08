@@ -4,7 +4,7 @@
           <div class="message">
               <div class="flex">
                   <p class="name">{{value.name}}</p>
-                  <img class="icon" src="../assets/heart.png" alt="">
+                  <img class="icon" src="../assets/heart.png" @click="fav(index)" alt>
                   <p class="number">{{value.like.length}}</p>
                   <img 
                     class="icon" 
@@ -14,7 +14,7 @@
                     v-if="path && profile"
                   />
                   <img
-                    class="icon" 
+                    class="icon detail" 
                     src="../assets/detail.png" 
                     @click="
                         $router.push({
@@ -26,7 +26,7 @@
                     v-if="profile"
                   />
               </div>
-              <p class="text">{{value.share}}</p>
+              <p class="text">{{value.item.share}}</p>
           </div>
       </div>
   </div>
@@ -35,6 +35,7 @@
 <script>
 import axios from "axios";
 export default {
+    props: ["id"],
     data() {
         return {
             shares: [],
@@ -70,7 +71,7 @@ export default {
                 axios
                     .post("https://calm-thicket-18960.herokuapp.com/api/like", {
                         share_id: this.shares[index].item.id,
-                        user_id: this.$router.state.user.id,
+                        user_id: this.$store.state.user.id,
                     })
                     .then((response) => {
                         console.log(response);
@@ -90,7 +91,7 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.$router.go({
-                        path: this.$router.currentRoute.pathm,
+                        path: this.$router.currentRoute.path,
                         force: true,
                     });
                 });

@@ -47,7 +47,7 @@ export default {
         axios
           .post("https://calm-thicket-18960.herokuapp.com/api/comment", {
             share_id: this.id,
-            user_id: this.$sotre.state.user.id,
+            user_id: this.$store.state.user.id,
             content: this.content,
           })
           .then((response) => {
